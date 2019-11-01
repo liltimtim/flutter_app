@@ -4,6 +4,9 @@
 // [GlobalKey] is used here to identify the [Form] and validate input.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/location_details.dart';
+import 'package:flutter_app/mocks/mock_location.dart';
+import 'package:flutter_app/models/location_detail.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,6 +43,8 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final _formKey = GlobalKey<FormState>();
 
+  LocationDetail detail = MockLocation.FetchAny();
+
   String validate(String value, String message) {
     if (value.isEmpty) {
       return message;
@@ -73,7 +78,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               onPressed: () {
 
                 if (_formKey.currentState.validate()) {
-                  // Process data.
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder:
+                          (context) => LocationDetails(detail)
+                      )
+                  );
                 }
               },
               child: Text('Login'),
